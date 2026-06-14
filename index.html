@@ -1,23 +1,906 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+
+    <!-- JSON-LD Structured Data for SEO Snippet -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "냉동탑차 보험료 최저가 비교 플랫폼",
+          "url": "https://yourdomain.com",
+          "description": "다양한 냉동탑차 모델의 2026년 최신 자동차보험료 비교 분석 플랫폼입니다. 영업용, 자가용 화물차의 예상 견적과 할인 특약 정보를 상세히 안내합니다.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://yourdomain.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "offerCount": "15+",
+            "lowPrice": "500000",
+            "highPrice": "4500000",
+            "priceCurrency": "KRW",
+            "areaServed": "대한민국"
+          }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "냉동탑차 보험료는 일반 카고 트럭보다 왜 더 높게 책정되나요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "냉동탑차는 차량에 고가의 냉동기 및 탑 구조물이 추가 설치되어 차량가액 자체가 일반 카고 트럭보다 높습니다. 또한 신선식품 등 온도 민감 화물을 주로 운송하므로 사고 발생 시 적재물 피해 규모가 크고, 특장 부품의 수리 비용이 추가로 발생하여 보험사 손해율이 높기 때문입니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "영업용 냉동탑차 가입 시 필수 특약은 무엇인가요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "영업용 번호판(배, 사, 아, 자 등)을 부착한 냉동탑차는 화물자동차 운수사업법에 따라 적재물배상책임보험 가입이 의무화되어 있습니다. 또한 장거리 야간 운행이 많으므로 무보험차상해 담보 한도를 높이고, 자기차량손해 담보 가입 시 냉동기 및 특장 부품을 부속품으로 명확히 등록해야 온전한 보상을 받을 수 있습니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "2026년 냉동탑차 보험 시장의 주요 변화는 무엇인가요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "2026년에는 화물차 안전장치 장착 의무화 확대와 차세대 커넥티드 카 서비스를 연계한 할인 혜택이 강화되었습니다. 정비 공임 및 특장 부품 단가 상승으로 기본 책임보험료 인상 요인이 있으나, 첨단 안전 보조장치나 운전 습관 연계 특약을 적극 활용하면 총 비용을 크게 절감할 수 있습니다."
+              }
+            }
+          ]
+        }
+    </script>
+
+    <style>
+        /* CSS Reset and Global Styles */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; 
+            background-color: #f3f7f9; 
+            color: #2c3e50; 
+            line-height: 1.7; 
+        }
+        a { 
+            text-decoration: none; 
+            color: #3498db; 
+            transition: color 0.3s ease, border-color 0.3s ease; 
+        }
+        a:hover { 
+            color: #2980b9; 
+        }
+        img { 
+            max-width: 100%; 
+            height: auto; 
+            display: block; 
+        }
+        header, main, footer { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            box-sizing: border-box; 
+        }
+
+        /* Color Palette and Modern Theme Variables */
+        :root {
+            --primary-color: #1e3d59;      /* Deep Slate Blue */
+            --secondary-color: #17b978;    /* Fresh Mint Green */
+            --accent-color: #ff6f61;       /* Soft Terracotta */
+            --background-light: #ffffff;   /* Pure White */
+            --background-soft: #f5f7fa;    /* Cool Soft Gray */
+            --text-dark: #2c3e50;
+            --text-muted: #7f8c8d;
+        }
+
+        /* Header Styles */
+        header { 
+            background-color: var(--background-light); 
+            border-bottom: 4px solid var(--primary-color); 
+            padding: 40px 20px; 
+            text-align: center; 
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        header h1 { 
+            color: var(--primary-color); 
+            font-size: 2.4em; 
+            margin-bottom: 15px; 
+            font-weight: 800; 
+            letter-spacing: -1px;
+        }
+        header p { 
+            color: var(--text-muted); 
+            font-size: 1.15em; 
+            margin-bottom: 25px; 
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        nav ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            gap: 10px;
+        }
+        nav li { 
+            margin: 5px; 
+        }
+        nav li a { 
+            font-weight: bold; 
+            font-size: 0.95em; 
+            color: var(--primary-color); 
+            padding: 10px 20px; 
+            display: inline-block; 
+            background-color: var(--background-soft);
+            border-radius: 30px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        nav li a:hover { 
+            background-color: var(--primary-color); 
+            color: white;
+        }
+
+        /* Main Section Styles */
+        section { 
+            padding: 45px 30px; 
+            background-color: var(--background-light); 
+            margin-bottom: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); 
+        }
+        section h2 { 
+            color: var(--primary-color); 
+            font-size: 1.8em; 
+            margin-bottom: 25px; 
+            border-bottom: 3px solid var(--background-soft); 
+            padding-bottom: 12px; 
+            font-weight: 700; 
+        }
+        section h3 { 
+            color: var(--primary-color); 
+            font-size: 1.35em; 
+            margin-top: 35px; 
+            margin-bottom: 15px; 
+            font-weight: 600; 
+        }
+        section p { 
+            color: var(--text-dark); 
+            margin-bottom: 20px; 
+            text-align: justify;
+        }
+
+        /* Form Styles for High Engagement */
+        form { 
+            background-color: var(--background-soft); 
+            padding: 35px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(0,0,0,0.05); 
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        @media (max-width: 768px) {
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
+        label { 
+            display: block; 
+            font-weight: 600; 
+            margin-bottom: 10px; 
+            color: var(--primary-color); 
+        }
+        input[type="text"], input[type="date"], input[type="number"], input[type="tel"], select, textarea {
+            width: 100%; 
+            padding: 14px; 
+            border: 1px solid #dcdde1; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 0.95em; 
+            background-color: white;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, select:focus, textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        select { 
+            appearance: none; 
+            -webkit-appearance: none; 
+            -moz-appearance: none; 
+            background: #fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' fill='%231e3d59'/></svg>") no-repeat right 15px center; 
+            background-size: 14px; 
+        }
+        .submit-btn { 
+            background-color: var(--secondary-color); 
+            color: white; 
+            border: none; 
+            padding: 18px 30px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            width: 100%; 
+            transition: background-color 0.3s ease, transform 0.2s ease; 
+        }
+        .submit-btn:hover { 
+            background-color: #129a62; 
+            transform: translateY(-1px);
+        }
+
+        /* Info Box and Table Styles */
+        .info-box { 
+            background-color: #e8f4fd; 
+            border-left: 5px solid var(--primary-color); 
+            padding: 20px; 
+            border-radius: 4px 8px 8px 4px; 
+            margin-top: 25px; 
+            color: var(--primary-color); 
+            font-size: 0.95em;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 25px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02); 
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td { 
+            padding: 15px 18px; 
+            text-align: left; 
+            border-bottom: 1px solid #eaedf1; 
+        }
+        th { 
+            background-color: var(--primary-color); 
+            font-weight: 700; 
+            color: white; 
+        }
+        tr:nth-child(even) { 
+            background-color: #fafbfc; 
+        }
+        tr:hover { 
+            background-color: #f1f4f7; 
+        }
+
+        /* Keyword Tags */
+        .keyword-tags { 
+            margin-top: 25px; 
+            padding-top: 15px; 
+            border-top: 1px dashed #e1e8ed; 
+        }
+        .keyword-tags a { 
+            display: inline-block; 
+            background-color: var(--background-soft); 
+            color: var(--text-dark); 
+            padding: 8px 16px; 
+            margin: 6px; 
+            border-radius: 30px; 
+            font-size: 0.85em; 
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .keyword-tags a:hover { 
+            background-color: var(--primary-color); 
+            color: white; 
+        }
+
+        /* FAQ Styles */
+        .faq-dl { 
+            margin-top: 25px; 
+        }
+        .faq-dl dt { 
+            font-weight: 700; 
+            padding: 18px; 
+            background-color: var(--background-soft); 
+            border-bottom: 1px solid #e2e8f0; 
+            cursor: pointer; 
+            position: relative; 
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        .faq-dl dt::before { 
+            content: '+'; 
+            position: absolute; 
+            right: 20px; 
+            font-size: 1.3em; 
+            transition: transform 0.3s ease; 
+            color: var(--primary-color);
+        }
+        .faq-dl dt.active::before { 
+            content: '-'; 
+            transform: rotate(180deg); 
+        }
+        .faq-dl dd { 
+            padding: 20px; 
+            background-color: white; 
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            display: none; 
+            margin: -10px 0 15px 0; 
+            border-radius: 0 0 8px 8px;
+            color: #34495e;
+        }
+        .faq-dl dt.active + dd { 
+            display: block; 
+        }
+
+        /* Additional Styles for Dwell Time and User Engagement */
+        .long-content { 
+            padding: 10px; 
+        }
+        .long-content p { 
+            margin-bottom: 25px; 
+            text-align: justify; 
+            font-size: 0.98em;
+            color: #34495e;
+        }
+        .related-links { 
+            background-color: var(--background-soft); 
+            padding: 20px; 
+            border: 1px solid #eaedf1; 
+            border-radius: 8px; 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: flex-start; 
+            gap: 12px; 
+            margin-top: 25px; 
+        }
+        .related-links a { 
+            display: inline-block; 
+            padding: 10px 18px; 
+            border: 1px solid #dcdde1; 
+            border-radius: 6px; 
+            font-size: 0.9em; 
+            color: var(--primary-color); 
+            background-color: white;
+            font-weight: 600;
+        }
+        .related-links a:hover { 
+            background-color: var(--primary-color); 
+            border-color: var(--primary-color); 
+            color: white; 
+        }
+        .form-check-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .form-check-group label { 
+            font-weight: normal; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        /* Simulated Data Visualization styling */
+        .data-visualization { 
+            background-color: var(--background-soft); 
+            padding: 30px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(0,0,0,0.03); 
+            margin-bottom: 25px; 
+        }
+        .graph-description { 
+            font-style: italic; 
+            color: var(--text-muted); 
+            font-size: 0.88em; 
+            margin-top: 12px; 
+        }
+        .bar-container {
+            height: 240px; 
+            display: flex; 
+            align-items: flex-end; 
+            justify-content: space-around; 
+            font-size: 0.85em; 
+            text-align: center;
+            border-bottom: 2px solid #bdc3c7;
+            padding-bottom: 10px;
+            margin-top: 20px;
+        }
+        .bar {
+            width: 14%; 
+            background-color: var(--primary-color); 
+            border-radius: 6px 6px 0 0;
+            color: white;
+            padding-top: 10px;
+            box-sizing: border-box;
+            font-weight: bold;
+            transition: height 0.5s ease, background-color 0.3s;
+        }
+        .bar:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Footer Styles */
+        footer { 
+            background-color: var(--primary-color); 
+            color: white; 
+            text-align: center; 
+            padding: 40px; 
+            margin-top: 40px; 
+            border-radius: 12px 12px 0 0; 
+        }
+        footer p { 
+            margin: 8px 0; 
+            font-size: 0.9em; 
+            color: #bdc3c7;
+        }
+        footer .footer-title {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>냉동탑차 보험료 최저가 비교 플랫폼 | 2026 자동차보험 가입 분석</h1>
+        <p>포터2, 봉고3, 마이티부터 대형 화물 특장 차량까지 운전자 연령과 사용 목적에 딱 맞는 맞춤형 자동차보험 견적 비교 솔루션입니다. 합리적인 할인 특약과 필수 보장 정보를 명확하게 제시합니다.</p>
+        <nav aria-label="주요 메뉴">
+            <ul>
+                <li><a href="#보험료계산">실시간 보험료 계산</a></li>
+                <li><a href="#보험료비교">모델별 보험료 비교</a></li>
+                <li><a href="#트렌드">2026 보험 트렌드</a></li>
+                <li><a href="#가입가이드">보험 가입 가이드</a></li>
+                <li><a href="#정보센터">정보 센터</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+
+        <section id="보험료계산">
+            <h2>냉동탑차 보험료 실시간 무료 견적 요청</h2>
+            <p>냉동탑차 차주님들을 위해 준비한 고도화된 보험 분석 도구입니다. 포터2 냉동탑차, 봉고3 냉동탑차, 마이티 냉동탑차 등 보유하신 차량 정보를 정확하게 입력하시면 다수의 보험사 데이터를 비교 분석하여 가장 저렴한곳 및 조건에 맞는 상품을 안내해 드립니다. 자가용은 물론 영업용 화물차의 필수 보장 사항까지 꼼꼼히 반영한 예상 금액을 확인해 보시기 바랍니다.</p>
+
+            <form action="#" method="POST" onsubmit="event.preventDefault(); alert('견적 요청 정보가 정상적으로 등록되었습니다. 분석 결과를 곧 전송해 드립니다.');">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="car-model">1. 냉동탑차 차종 및 모델 분류 (필수)</label>
+                        <select id="car-model" name="car-model" required>
+                            <option value="">차량 세부 모델을 선택해 주세요</option>
+                            <option value="현대 포터2 냉동탑차">현대 포터2 냉동탑차 (1톤 초장축 슈퍼캡)</option>
+                            <option value="기아 봉고3 냉동탑차">기아 봉고3 냉동탑차 (1톤 표준캡/킹캡)</option>
+                            <option value="현대 마이티 냉동탑차">현대 마이티 냉동탑차 (2.5톤/3.5톤 특장)</option>
+                            <option value="현대 포터 일렉트릭 냉동탑차">현대 포터 일렉트릭 전기 냉동탑차</option>
+                            <option value="기아 봉고 EV 냉동탑차">기아 봉고 EV 전기 냉동탑차</option>
+                            <option value="타타대우 더쎈 냉동탑차">타타대우 더쎈 냉동탑차 (3톤/4톤/5톤)</option>
+                            <option value="현대 파비스 냉동탑차">현대 파비스 냉동탑차 (5.5톤 ~ 13.5톤)</option>
+                            <option value="현대 메가트럭 냉동탑차">현대 메가트럭 중고 냉동탑차</option>
+                            <option value="스타리아 냉동탑차">현대 스타리아 카고 냉동탑차</option>
+                            <option value="기아 봉고 워크스루밴">기아 봉고 워크스루밴 냉동 사양</option>
+                            <option value="기타 대형 특장 냉동탑차">기타 대형 및 수입 특장 냉동탑차 (트랙터 포함)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="use-type">2. 차량 사용 용도 분류 (필수)</label>
+                        <select id="use-type" name="use-type" required>
+                            <option value="">사용 형태를 선택해 주세요</option>
+                            <option value="영업용">영업용 화물 (노란색 번호판 - 배, 사, 아, 자 바 등)</option>
+                            <option value="개인용 자가용">개인용 자가용 (흰색/녹색 번호판 - 납품 및 단순 운반)</option>
+                            <option value="법인용 자가용">법인용 화물 (사업장 내부 물류 배송용)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="car-year">3. 차량 연식 및 특장 설치 년도 (필수)</label>
+                        <input type="number" id="car-year" name="car-year" placeholder="예: 2024" min="2010" max="2027" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="driver-age">4. 최저 운전자 만 연령 한정 (필수)</label>
+                        <input type="number" id="driver-age" name="driver-age" placeholder="예: 35" min="21" max="80" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cargo-insurance">5. 적재물배상책임보험 임의 추가 및 한정 선택</label>
+                        <select id="cargo-insurance" name="cargo-insurance">
+                            <option value="의무">의무 가입 대상 (최대 적재량 1톤 초과 영업용 화물차)</option>
+                            <option value="선택 가입">선택 가입 (1톤 이하 자가용 및 임의 가입 희망자)</option>
+                            <option value="가입 안함">미가입 대상 (해당 사항 없음)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="special-discount">6. 현재 적용 가능한 할인 특약 (선택)</label>
+                        <select id="special-discount" name="special-discount">
+                            <option value="">보유 중인 특약 사항 선택</option>
+                            <option value="안전장치">첨단 안전 보조장치 특약 (차선이탈 경보 등)</option>
+                            <option value="커넥티드">커넥티드 카 안전운전 할인 (티맵 점수 연동)</option>
+                            <option value="마일리지">주행거리 연동 마일리지 환급 특약</option>
+                            <option value="블랙박스">블랙박스 상시 장착 할인</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="driver-exp">7. 운전 및 가입 경력 (필수)</label>
+                        <select id="driver-exp" name="driver-exp" required>
+                            <option value="신규">신규 가입 (가입 경력 1년 미만)</option>
+                            <option value="1년">1년 이상 3년 미만</option>
+                            <option value="3년">3년 이상 5년 미만</option>
+                            <option value="5년">5년 이상 우수 차주</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-tel">8. 안내 받을 연락처 (필수)</label>
+                        <input type="tel" id="contact-tel" name="contact-tel" placeholder="010-0000-0000" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>9. 추가 확인 및 보장 항목 설정</label>
+                        <div class="form-check-group">
+                            <label><input type="checkbox" id="cov-1" name="cov[]" value="자기차량손해 특장 포함">자기차량손해 담보 적용 시 냉동기 가격 및 특장 부속 장비 포함 가입</label>
+                            <label><input type="checkbox" id="cov-2" name="cov[]" value="법률비용지원">법률비용지원 특약 (형사합의금, 변호사 선임 비용 포함)</label>
+                            <label><input type="checkbox" id="cov-3" name="cov[]" value="긴급출동">긴급출동 서비스 확대형 가입 (중대형 화물용 견인 확대)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" aria-label="무료 보험료 비교 신청">맞춤형 냉동탑차 보험료 분석 결과 조회하기</button>
+            </form>
+            <div class="info-box">
+                <strong>정밀 안내 분석 참고사항:</strong> 냉동탑차는 하이 냉동탑차, 저상 냉동탑차, 기아 워크스루밴 냉동탑차 등 특장의 형태 및 냉동기 규격에 따라 차량가액 차이점이 큽니다. 차량 등록증상 정격 탑재 중량과 특장 장비의 실제 구입 금액을 정확히 반영하셔야 사고 발생 시 충분한 대물 및 자차 보상을 받으실 수 있습니다.
+            </div>
+
+            <div class="keyword-tags" aria-label="핵심 키워드 네비게이션">
+                <a href="#보험료계산">냉동탑차 보험료 실시간 계산기</a>
+                <a href="#보험료비교">영업용 냉동탑차 다이렉트 비교</a>
+                <a href="#트렌드">2026 화물차 운수사업법 개정안</a>
+                <a href="#가입가이드">자가용 탑차 가입 요령</a>
+                <a href="#모델별차이">포터2 봉고3 비용 분석</a>
+                <a href="#할인특약">적재물배상책임 요율 확인</a>
+                <a href="#할인특약">화물차 블랙박스 제휴 혜택</a>
+                <a href="#모델별차이">특장 부속 장비 보상 한도</a>
+            </div>
+        </section>
+
+        <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 40px 0;">
+
+        <section id="보험료비교">
+            <h2>냉동탑차 보험료 모델별 및 사용 용도별 비용 비교 분석</h2>
+            <p>냉동탑차는 화물 적재 중량 및 운수업 특성에 따라 비용 편차가 뚜렷합니다. 특히 영업용 냉동탑차는 신규 가입 시 기본 사고 요율 기준이 높기 때문에 전문 비교 업체의 꼼꼼한 세부 견적이 필수적입니다. 아래 가이드 표는 2026년 기준 대한민국 주요 보험사의 가입 조건별 평균 연간 견적을 시뮬레이션한 수치입니다.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>냉동탑차 분류 사양</th>
+                        <th>사용 용도 기준</th>
+                        <th>평균 예상 보험료 (만 35세 기준)</th>
+                        <th>장단점 및 위험률 차이점</th>
+                        <th>추천 할인 특약 상품</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>현대 포터2 냉동탑차 / 기아 봉고3 냉동탑차 1톤</td>
+                        <td>개인용 자가용</td>
+                        <td>연간 65만원 ~ 110만원</td>
+                        <td>상대적으로 사고 빈도가 낮아 보험 가입 시 저렴한곳 탐색이 용이함. 자차 제외 시 비용 절감 가능하나 비추천.</td>
+                        <td>블랙박스 장착 할인, 마일리지 연동 특약</td>
+                    </tr>
+                    <tr>
+                        <td>현대 포터 일렉트릭 / 기아 봉고 EV 친환경 냉동탑차</td>
+                        <td>자가용 및 택배 전용 배송</td>
+                        <td>연간 85만원 ~ 140만원</td>
+                        <td>전기 구동계 및 배터리 교체 비용 부담으로 자차 가액이 높음. 전기차 전용 특별 약관 검토 필요.</td>
+                        <td>친환경 차량 특별 요율 적용, 커넥티드 드라이빙 할인</td>
+                    </tr>
+                    <tr>
+                        <td>현대 마이티 냉동탑차 2.5톤 ~ 3.5톤</td>
+                        <td>영업용 개별 화물</td>
+                        <td>연간 160만원 ~ 280만원</td>
+                        <td>장거리 고속도로 야간 운행 비율이 높아 종합 사고율 및 대인배상 무한 담보가 필수적임.</td>
+                        <td>안전장치 장착 지원금, 법률 비용 특별 약관</td>
+                    </tr>
+                    <tr>
+                        <td>타타대우 더쎈 냉동탑차 5톤 / 현대 파비스 냉동탑차 대형</td>
+                        <td>영업용 및 법인 물류</td>
+                        <td>연간 240만원 ~ 420만원</td>
+                        <td>중대형 화물 특성상 대인 및 대물배상 한도 10억원 이상 추천. 적재물배상책임보험 의무 가입 대상.</td>
+                        <td>단체 할인 혜택, 단기 운전자 지정 특약</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box" id="모델별차이">
+                <strong>냉동탑 및 냉동기 추가 가액 설정 주의사항:</strong> 포터2 냉동탑차나 봉고3 냉동탑차의 중고 가액을 계산할 때 탑 내부의 정품 냉동기 외에 추가로 설치한 보조 냉동기나 칸막이, 온도 기록계 등 특장 설비 비용을 자동차보험 계약 당시에 명시해야 합니다. 이를 누락할 경우 단독 사고나 자연재해로 특장이 파손되었을 때 온전한 부속 장비 수리 보상을 받기 어렵습니다.
+            </div>
+
+            <h3>냉동탑차 사용 목적에 따른 연간 평균 예상 비용 분포</h3>
+            <div class="data-visualization">
+                <p class="graph-description">2026년 기준 냉동탑차 용도별 연간 평균 예상 자동차보험 가입 비용 (단위: 만원)</p>
+                
+                <div class="bar-container">
+                    <div class="bar" style="height: 25%;">70<br>자가용 1톤</div>
+                    <div class="bar" style="height: 35%;">100<br>전기탑차 1톤</div>
+                    <div class="bar" style="height: 60%;">180<br>택배 전용</div>
+                    <div class="bar" style="height: 75%;">220<br>영업용 2.5톤</div>
+                    <div class="bar" style="height: 90%;">320<br>영업용 5톤</div>
+                    <div class="bar" style="height: 100%;">400<br>대형 특장차</div>
+                </div>
+                
+                <p class="graph-description" style="margin-top: 15px;">이 수치는 가입자의 무사고 경력 3년 이상 및 만 35세 이상 한정 운전을 기준으로 시뮬레이션한 평균적인 보험료 수준입니다. 신규 가입 차주나 20대 젊은 연령대 기사님들의 경우 최초 요율 적용 및 사고 이력 할증에 따라 위 수치보다 높은 금액이 책정될 수 있으므로 사전에 정밀한 다이렉트 조회가 필요합니다.</p>
+            </div>
+        </section>
+
+        <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 40px 0;">
+
+        <section id="트렌드">
+            <h2>2026년 화물 자동차보험 트렌드 및 냉동탑차 시장 변화 예측</h2>
+            <p>2026년의 상업용 자동차보험 시장은 기술 발전과 정비 인프라 환경 변화에 따라 과거와는 다른 보장 기준이 적용됩니다. 고온 다습한 기후 변화가 잦아지면서 신선 식품 콜드체인의 핵심인 냉동탑차의 손해율 관리가 한층 정교해지고 있습니다. 다음은 올해 주요 보험사들이 냉동 및 냉장 탑차의 인수 기준을 수립할 때 중요하게 평가하는 트렌드 요인들입니다.</p>
+
+            <h3>1. 커넥티드 데이터 기반 실시간 운전 습관 요율 적용</h3>
+            <p>현대 포터2 일렉트릭 냉동탑차나 기아 봉고 EV 냉동탑차 등 최근에 출시된 차량들은 무선 통신 모듈을 기반으로 주행 정보가 정밀하게 기록됩니다. 보험사들은 네이버, 구글 지도 서비스 플랫폼 또는 전용 차량 관리 단말기와 연동하여 차주의 주행 거리, 야간 운행 비율, 급가속 및 급감속 횟수를 분석하여 보험료 할인 혜택을 제공합니다. 이는 디시, 보배드림, 펨코, 에펨코리아 등 다수의 온라인 커뮤니티에서 실사용자들의 내돈내산 가입 성공 후기에서 효과적인 비용 절약법으로 빈번하게 언급되고 있습니다.</p>
+
+            <h3>2. 첨단 안전장치 의무 장착 대상 확대와 연계 특별 요율</h3>
+            <p>화물자동차 운수사업법의 개정에 따라 일정 톤수 이상의 탑차 및 윙바디 차량에 전방충돌 경고장치와 차로이탈 경고장치 장착이 점진적으로 의무화되고 있습니다. 이러한 센서 장비들은 사고 확률을 대폭 낮춰주기 때문에 신규 계약 시 최대 5%에서 8% 수준의 다이렉트 할인을 제공받을 수 있는 장점이 있습니다. 장비를 수리할 때 센서 세팅 비용이 추가적으로 발생해 자차 요율이 일부 상승할 수 있는 단점이 존재하지만, 종합 사고율 방어로 이어져 장기적으로 안전 운행에 기여합니다.</p>
+
+            <h3>3. 특장 정비 단가 상승에 따른 대물배상 한도 상향화</h3>
+            <p>정비 업체의 기술료 상승과 알루미늄 탑, 단열재 등 원자재 가격이 증가하면서 부품 교체 시 수리 비용 청구 금액이 가파르게 상승하고 있습니다. 경미한 접촉 사고가 발생하더라도 온도 유지 탑 내부의 구조적 결함이 우려될 경우 부분 교체가 아닌 전체 부품 재생 방식으로 진행되는 사례가 많습니다. 이러한 리스크를 방지하기 위해 많은 보배드림 운수업 회원들은 대물배상 한도를 기존 2억원에서 최소 5억원 또는 10억원 규모로 상향 조정해 가입하는 추세입니다.</p>
+
+            <h3>현명한 냉동탑차 차주를 위한 가입 전 필수 체크리스트</h3>
+            <form action="#" method="POST" onsubmit="event.preventDefault(); alert('체크리스트 저장이 완료되었습니다. 설정된 내용을 바탕으로 전문 제휴사에서 상세 조회를 진행합니다.');">
+                <div class="form-group">
+                    <label>보험 갱신 및 신규 가입 시 놓치면 안 되는 중요 체크 항목</label>
+                    <div style="background-color: var(--background-soft); padding: 20px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05);">
+                        <div style="margin-bottom: 12px;">
+                            <input type="checkbox" id="chk-law" name="chk[]" value="적재물배상책임 확인" checked>
+                            <label for="chk-law" style="display:inline; font-weight:normal;">1. 화물운수사업법 의무 요건인 적재물배상책임 가입 대상 여부 및 최소 가입 금액 확인 완료</label>
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <input type="checkbox" id="chk-spec" name="chk[]" value="특장가액 설정" checked>
+                            <label for="chk-spec" style="display:inline; font-weight:normal;">2. 냉동기, 알루미늄 리프트 등 고가 특장 부속물이 차량 가액에 누락 없이 반영되었는지 확인 완료</label>
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <input type="checkbox" id="chk-age" name="chk[]" value="연령제한">
+                            <label for="chk-age" style="display:inline; font-weight:normal;">3. 실제 탑차를 운행하는 기사의 연령에 맞춰 가족한정, 부부한정, 또는 1인 지정 특약 설정 완료</label>
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <input type="checkbox" id="chk-point" name="chk[]" value="안전점수">
+                            <label for="chk-point" style="display:inline; font-weight:normal;">4. 티맵 등 네비게이션 앱의 주행 평점 및 안전점수가 보험료 제휴 할인 수준을 충족하는지 대조 완료</label>
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <input type="checkbox" id="chk-mile" name="chk[]" value="마일리지">
+                            <label for="chk-mile" style="display:inline; font-weight:normal;">5. 주행거리가 짧은 지역 거점 배송 탑차의 경우 마일리지 후할인 환급률 사전 대조 완료</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="checklist-user-note">차량 상태 및 특이 사항 메모</label>
+                    <textarea id="checklist-user-note" name="checklist-user-note" placeholder="예: 한중특장 2.5톤 탑차이며, 3년 전 탑 구조 변경 후 구변 신고 완료된 상태입니다. 저렴한곳 추천 부탁드립니다." rows="4"></textarea>
+                </div>
+                <button type="submit" class="submit-btn" style="background-color: var(--primary-color);">입력한 체크리스트 및 조건 저장하기</button>
+            </form>
+        </section>
+
+        <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 40px 0;">
+
+        <section id="가입가이드">
+            <h2>냉동탑차 자동차보험 현명한 가입 가이드 및 선정 요령</h2>
+            <p>냉동탑차는 일반 승용차와 달리 생계형 상용차에 해당하는 경우가 많기 때문에, 가입 시 제공받을 수 있는 현금지원, 지원금 혜택 및 모바일 상품권, 사은품 증정 등 신규 가입 혜택과 이벤트를 꼼꼼하게 따져보는 것이 유리합니다. 각 다이렉트사들은 연초 및 분기별로 다양한 채널(네이버, 페이스북, 인스타그램, 유튜브)을 통해 신규 고객 유치 경쟁을 전개하고 있습니다.</p>
+
+            <h3>냉동탑차 전용 요율 설정의 기준 및 영향 요소</h3>
+            <ul>
+                <li><strong>특장 부품의 보장 여부:</strong> 탑스특장 냉동탑차, 한중특장 냉동탑차, 대성특장 냉동탑차 등 특수 제작 업체를 통해 구변을 진행한 차량은 제조사의 정식 출고 차량과 요율 산정이 상이합니다. 신규 계약 시 반드시 구변 승인서를 첨부하여 보험 적용 여부를 확정해야 사고 발생 시 보장 분쟁을 예방할 수 있습니다.</li>
+                <li><strong>법률 비용 및 운전자보험 별도 구성:</strong> 영업용 화물차의 특성상 일평균 도로 체류 시간이 길기 때문에, 중대재해처벌법 및 민식이법 등 강화된 도로 교통 법규에 능동적으로 대처하기 위한 변호사 선임비용, 형사 합의금 관련 담보를 전용 상품으로 보강하는 것을 권장합니다.</li>
+                <li><strong>적재물 보상 한도와 실손 보상 비중:</strong> 냉동 수송 물품은 온도 상승으로 인한 부패 리스크가 크므로, 단순 대물 보장 외에 적재물배상책임 특별 약관의 보장 항목에 냉동기 고장으로 인한 적재물 변질 손해 배상이 실손 보장 범위에 포함되는지 비교 검토가 시급합니다.</li>
+            </ul>
+
+            <h3 id="모델별차이">냉동탑차 주요 모델별 최적의 견적 산출 시뮬레이션</h3>
+            <p>보유하신 차량의 특장 구조와 엔진 사양에 맞춤화된 전문 분석이 필요합니다. 아래 모델 선택 도구를 통해 본인에게 해당하는 탑차 정보를 선택하시면 최적화된 보장 구성 노하우를 즉시 확인하실 수 있습니다.</p>
+
+            <form action="#" method="GET" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="dynamic-model-select">분석이 필요한 탑차 세부 구분 모델</label>
+                    <select id="dynamic-model-select" name="model" onchange="showDynamicAnalysis(this.value)">
+                        <option value="none">모델을 선택하면 해당 맞춤 가이드가 표시됩니다</option>
+                        <option value="porter-ice">현대 포터2 냉동탑차 (1톤 특장)</option>
+                        <option value="bongo-electric">기아 봉고3 EV 친환경 전기 탑차</option>
+                        <option value="mighty-box">현대 마이티 2.5톤 / 3.5톤 광폭 탑차</option>
+                        <option value="daewoo-thessen">타타대우 더쎈 및 파비스 중대형 탑차</option>
+                    </select>
+                </div>
+
+                <div class="info-box" id="dynamic-info-display">
+                    <strong>상세 모델 분석:</strong> 위에 마련된 냉동탑차 사양 중 하나를 선택하시면 해당 모델에 특화된 보험 세부 사항과 2026년 최신 갱신 포인트 정보가 이곳에 활성화됩니다.
+                </div>
+
+                <script>
+                    function showDynamicAnalysis(model) {
+                        const displayBox = document.getElementById('dynamic-info-display');
+                        let content = '';
+                        switch(model) {
+                            case 'porter-ice':
+                                content = '<strong>현대 포터2 1톤 냉동탑차:</strong> 국내에서 배송용으로 가장 널리 이용되는 대표 차종입니다. 개인 자가용 및 소상공인 납품용 가입 비율이 높아 다이렉트사별 경쟁이 가장 치열하며 특약 할인율도 높게 설정됩니다. 주행거리 연동 마일리지 특약과 모바일 기기 활용 커넥티드 할인을 동시에 구성하는 것이 가성비 면에서 훌륭합니다.';
+                                break;
+                            case 'bongo-electric':
+                                content = '<strong>기아 봉고3 EV 전기 냉동탑차:</strong> 전기 구동 모터와 냉동 특장 장치에 고가의 리튬 이온 배터리 전력 소모가 연계되는 첨단 차량입니다. 사고 시 배터리 수리 및 단독 파손에 대한 자차 보장 한도를 높게 잡으셔야 안심할 수 있습니다. 친환경 화물차 요율을 제공하는 전문 업체를 우선적으로 추천합니다.';
+                                break;
+                            case 'mighty-box':
+                                content = '<strong>현대 마이티 2.5톤/3.5톤 광폭 냉동탑:</strong> 개별 화물 및 중거리 정기 배송 비중이 높아 가입 평균 단가가 상대적으로 높습니다. 단체 가입 조건이나 화물 공제조합 상품과의 꼼꼼한 요금 비교가 수반되어야 하며, 특히 무보험차상해 가입 금액을 5억원 이상으로 든든하게 지정하는 것이 위험 관리에 이상적입니다.';
+                                break;
+                            case 'daewoo-thessen':
+                                content = '<strong>타타대우 더쎈 및 파비스 5톤급 냉동탑차:</strong> 화물 특성상 적재물 보장 의무 가입 요건을 준수해야 합니다. 대형 화물 전용 특별 구조로 분류되므로 전용 할인 및 제휴 혜택 유무를 금융감독원 공시 포털과 손해보험협회 가이드라인에 따라 철저히 대조 가입해야 비용 낭비를 막을 수 있습니다.';
+                                break;
+                            default:
+                                content = '<strong>상세 모델 분석:</strong> 위에 마련된 냉동탑차 사양 중 하나를 선택하시면 해당 모델에 특화된 보험 세부 사항과 2026년 최신 갱신 포인트 정보가 이곳에 활성화됩니다.';
+                        }
+                        displayBox.innerHTML = content;
+                    }
+                </script>
+            </form>
+
+            <h3>화물 차주 및 종합 운수 사업자용 신뢰할 수 있는 외부 공인 기관</h3>
+            <div class="related-links">
+                <a href="https://www.fss.or.kr/" target="_blank" rel="noopener">금융감독원 통합 공시실</a>
+                <a href="https://www.knia.or.kr/" target="_blank" rel="noopener">손해보험협회 공시실</a>
+                <a href="https://www.kidi.or.kr/" target="_blank" rel="noopener">보험개발원 기술 연구원</a>
+                <a href="https://www.law.go.kr/" target="_blank" rel="noopener">국가법령정보센터 화물자동차법</a>
+                <a href="https://www.kotsa.or.kr/" target="_blank" rel="noopener">한국교통안전공단</a>
+                <a href="https://www.molit.go.kr/" target="_blank" rel="noopener">국토교통부 행정 정보</a>
+            </div>
+        </section>
+
+        <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 40px 0;">
+
+        <section id="정보센터">
+            <h2>냉동탑차 자동차보험 심층 분석 및 최적화 백서</h2>
+            <div class="long-content">
+                <p>냉동탑차를 안정적으로 운용하고 지출 비용을 효율적으로 제어하기 위해서는 해당 차량의 고유 특성과 규제 환경을 입체적으로 고찰해야 합니다. 포터2, 봉고3와 같은 1톤 소형 특장부터 현대 마이티, 파비스 및 대형 물류용 냉동탑차에 이르기까지, 적재물의 안전한 보존과 차주의 경제적 이익을 보호하기 위해 본 가이드라인은 상세한 핵심 메커니즘을 상세히 다룹니다.</p>
+
+                <h3>1. 차량가액 산정의 복합 구조와 특장 부속품 반영 원리</h3>
+                <p>냉동탑차의 보험 가입 시 가장 흔히 발생하는 실수는 제조사 정식 차량의 기본 차대 번호 가액만 반영하여 특수 장치를 가입 설계에서 생략하는 경우입니다. 특장 업체(예: 한중특장, 탑스특장, 대성특장 등)에서 탑 내부 온도 제어기, 서브 냉동기, 멀티 온도 기록 센서 및 슬라이딩 리프트 칸막이 등을 사후 보완 시공했다면, 이는 차대 가격과 구별되는 별도의 부속 설비로 등록해야 사고 발생 시 동일한 품질의 순정 특장 복원비용을 대물 및 자차 보험에서 실손으로 처리받을 수 있습니다. 차량가액 산정이 불명확하면 수리 중 감가상각이 잘못 계산되어 예상보다 적은 보상금액으로 인해 자비 지출 부담이 발생하는 큰 단점을 유발할 수 있습니다.</p>
+
+                <h3>2. 적재물배상책임법 개정 동향과 의무 가입 금액</h3>
+                <p>화물자동차 운수사업법에 근거하여 냉동 및 냉장 탑차의 경우, 일정 기준 이상의 화물차는 필수적으로 적재물배상책임 특별 약관에 가입하도록 규정되어 있습니다. 특히 최근 들어 신선식품 새벽배송 및 바이오 약품 유통 콜드체인이 급속도로 확장됨에 따라 일시적인 기기 고장으로 인한 물류 유실 사고에 대한 배상 보상 책임이 민감하게 다루어지고 있습니다. 사고 처리를 위해 제미나이(Gemini), 챗지피티(ChatGPT), AI 기반의 전문 상담 솔루션을 통해 보상 한도 및 특약을 사전에 가점 분석하는 스마트한 차주들이 증가하고 있는 이유가 바로 여기에 있습니다.</p>
+
+                <h3>3. 다이렉트 온라인 채널과 가입 할인 혜택의 실효성</h3>
+                <p>설계사 수수료를 줄인 다이렉트 가입 방식은 일반 대면 설계와 대조 시 평균 10% 이상 저렴한 혜택을 선사합니다. 여기에 신규 및 연간 계약 조건에 따른 사은품, 카드 결제 시 3만원에서 5만원 상당의 주유 상품권, 카드 현금지원 프로모션 등 다채로운 이벤트 혜택을 세심하게 결합하면 고정 운영비를 큰 폭으로 절감할 수 있는 실질적인 장점이 있습니다. 영업 전선에 나서는 화물 기사님들 사이에 널리 공유되는 디시 화물 갤러리나 에펨코리아, 보배드림의 생생한 내돈내산 추천 수기에서도 실질적인 비용 절감을 위해서는 사전에 비교 사이트를 통한 최저가 가입이 필수라는 공감대가 형성되어 있습니다.</p>
+
+                <h3>4. 운전자 연령 제한 설정과 가족한정 범위에 관한 정밀 분석</h3>
+                <p>냉동탑차 운전 기사의 가입 연령대는 보험료를 가르는 결정적인 단일 요인입니다. 일반적으로 만 21세, 만 24세, 만 26세, 만 30세, 만 35세, 만 43세 등 지정된 기준 연령에 도달할 때마다 기본 요율 등급이 유리하게 갱신됩니다. 만약 차량을 1인 외에 보조 기사나 가족이 교대로 주행하는 구상이라면, 해당 교대 근무자의 최저 연령에 절대적으로 맞춤 설정을 설계해야만 보장 공백이 생기지 않습니다. 이 과정에서 연령을 너무 광범위하게 지정하면 비용 상승의 주요 원인이 되므로, 야간 대행 기사 배송이나 단기 이벤트 기간에는 단기 운전자 지정 특약을 일시적으로 교체 적용하는 기법이 비용 관리 면에서 무척 슬기롭습니다.</p>
+
+                <h3>5. 온도 유지 관리 실패 배상 및 특장 장단점 보강 전략</h3>
+                <p>냉동 탑의 단열 기능 상실이나 발전용 모터 시스템 가동 중단으로 발생하는 간접 파손 손해는 일반적인 자동차 수리 보장의 사각지대에 해당합니다. 그렇기 때문에 온도 유지 장치의 기능 상실에 대한 배상 책임 특약을 꼼꼼히 확인하고 가입하는 것이 지혜롭습니다. 저상 냉동탑차나 전기 구동계 특화형 모델은 유지 보수의 편의성이라는 장점이 있지만, 전용 고압 케이블과 단열 판넬 파편 등 정비비 부담이 크다는 단점이 동시에 상존하므로, 정밀한 보험사 간의 순위 비교 플랫폼을 토대로 가성비 싼곳을 면밀히 타진하고 진행하시는 것이 후회 없는 가입의 첫걸음입니다.</p>
+
+                <p style="text-align: center; font-style: italic; color: #95a5a6; margin-top: 30px;">(냉동탑차 특장 가액 및 화물 보장 약정 실태에 대한 전문 백서 완료)</p>
+            </div>
+        </section>
+
+        <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 40px 0;">
+
+        <section id="자주묻는질문">
+            <h2>냉동탑차 자동차보험 자주 묻는 질문 (FAQ)</h2>
+            <dl class="faq-dl">
+                <dt tabindex="0" aria-expanded="false" class="faq-question">Q. 냉동탑차 보험료 평균 금액과 신규 가입 시 얼마를 예상해야 하나요?</dt>
+                <dd class="faq-answer">A. 1톤 포터2 냉동탑차 자가용 기준으로 만 35세 이상 무사고 차주님의 평균 예상 비용은 연간 70만원에서 110만원 안팎입니다. 다만 가입 경력이 없는 신규 가입 화물차 차주의 경우 최초 요율 등급 11G 적용 및 화물 배송 특화 위험 요율로 인하여 최소 120만원에서 180만원 이상의 금액이 산정될 수 있습니다. 대형 냉동탑이나 영업용 노란 번호판 탑차의 경우 이보다 많은 예산을 확보하셔야 합니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-question">Q. 탑스특장, 한중특장 등 전문 특장 탑을 따로 올렸을 때 신고는 어떻게 하나요?</dt>
+                <dd class="faq-answer">A. 출고 이후 개별 특장 업체를 통해 고단열 탑이나 리프트를 추가 장착하여 차량 용도를 냉동탑차로 전환한 경우, 교통안전공단에 구조 변경(구변) 승인을 완료하고 이를 증명하는 등록 서류와 탑 내부 냉동기 포함 세부 영수증을 다이렉트 가입 단계에서 수동 부속품 추가 항목으로 정확히 기입하여 등록하셔야 피해 복구 단가를 제대로 상환받으실 수 있습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-question">Q. 보배드림이나 펨코 등 커뮤니티에서 언급되는 가입 이벤트 혜택은 실재하나요?</dt>
+                <dd class="faq-answer">A. 네, 사실입니다. 다수의 온라인 상용차 동호회나 네이버 지식인, 구글 검색 유입 단계에서 제안되는 다이렉트 신규 조회 및 결제 혜택은 각 손해보험사가 공식 연계 제휴사를 통해 적법하게 집행하는 마케팅 활동입니다. 주유 및 모바일 백화점 상품권, 신용카드 무이자 무할부 및 일정 금액 캐시백 등의 리워드가 풍부하므로 이를 활용하시는 것을 적극 추천합니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-question">Q. 냉동탑차 운전 점수 연동 TMAP 특약 적용 시 유의점은 무엇입니까?</dt>
+                <dd class="faq-answer">A. 스마트폰 티맵 또는 차량 순정 내비게이션에 스마트 기기를 블루투스로 매칭한 상태에서 누적 일정 거리 이상을 주행하여 요구하는 평점 조건(대개 75점 또는 80점 이상)을 지속 유지 시, 계약 주기에 최대 11% 가량의 할인을 소급하여 돌려받거나 즉시 공제받을 수 있습니다. 장거리 야간 주행이 주를 이루는 상업 물류 차주분들에게 매우 실용적이고 효과적인 싼곳 찾기 방식입니다.</dd>
+            </dl>
+        </section>
+
+        <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 40px 0;">
+
+        <section id="연락처">
+            <h2>냉동탑차 전문 보험 설계 및 최저가 제안 문의 센터</h2>
+            <p>다년간 쌓아온 데이터와 화물 상수상용차 전문 보장 설계 모형을 접목하여 개별 기사님들의 경제 여건과 안심 물류 활동을 빈틈없이 조율해 드립니다. 상담 접수란에 필수 요건을 입력하시면 정밀 견적서를 간편히 받아보실 수 있습니다.</p>
+            
+            <form action="#" method="POST" onsubmit="event.preventDefault(); alert('간이 상담 요청서가 접수되었습니다. 담당 화물 전문 매니저가 확인 즉시 개별 연락드리겠습니다.');">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="quick-name">차주 성명 또는 상호명</label>
+                        <input type="text" id="quick-name" name="quick-name" placeholder="예: 홍길동" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quick-tel">상담 및 문자 수신용 연락처</label>
+                        <input type="tel" id="quick-tel" name="quick-tel" placeholder="010-0000-0000" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="quick-question">희망하는 맞춤 설계 조건 및 요청 메시지</label>
+                        <textarea id="quick-question" name="quick-question" placeholder="예: 2022년식 1.2톤 봉고3 하이냉동탑차 영업용 신규 예정입니다. 적재물 보험이랑 자차 포함 가격 저렴한곳 순위 견적 비교 원합니다." required rows="3"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn" aria-label="간단 상담 신청">간단 견적 설계 접수하기</button>
+            </form>
+        </section>
+
+        <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 40px 0;">
+
+        <section id="related-keywords">
+            <h2>함께 검색해 보는 인기 카테고리 및 관련 키워드</h2>
+            <div class="keyword-tags" aria-label="추천 키워드 목록">
+                <a href="#">포터2 냉동탑차 다이렉트 견적</a>
+                <a href="#">봉고3 냉동탑차 자가용 평균 비용</a>
+                <a href="#">영업용 1.2톤 탑차 종합 순위</a>
+                <a href="#">적재물배상책임보험 의무 가입 추천</a>
+                <a href="#">마이티 3.5톤 특장가액 정산 방법</a>
+                <a href="#">포터 일렉트릭 전기탑차 배터리 자차 요율</a>
+                <a href="#">화물차 전용 운전자 법률 특별 약관</a>
+                <a href="#">중고 화물 탑차 감가상각 대응 가이드</a>
+                <a href="#">손해보험협회 화물 요율 공시실 바로가기</a>
+                <a href="#">보배드림 개별화물 게시판 우수 후기</a>
+                <a href="#">한중특장 대성특장 구변 신고 절차</a>
+                <a href="#">TMAP 안전운전 커넥티드 서비스 연계</a>
+            </div>
+             <div class="related-links" aria-label="연계 카테고리 이동">
+                <a href="#">국가법령정보센터 상용화물 운수법률</a>
+                <a href="#">한국교통안전공단 구조변경 절차 가이드</a>
+                <a href="#">금융감독원 파인 통합 공시 포털</a>
+                <a href="#">화물복지재단 복지 혜택 안내</a>
+                <a href="#">도로교통공단 안전 운전 지원 센터</a>
+            </div>
+        </section>
+
     </main>
-  </body>
-</html>
+
+    <script>
+        // FAQ 아코디언 컴포넌트 동작 제어 스크립트
+        document.querySelectorAll('.faq-dl dt').forEach((dt) => {
+            dt.addEventListener('click', () => {
+                const isAlreadyActive = dt.classList.contains('active');
+
+                // 일관성을 위해 열린 다른 질문을 순차적으로 닫음
+                document.querySelectorAll('.faq-dl dt').forEach(otherDt => {
+                    otherDt.classList.remove('active');
+                    otherDt.setAttribute('aria-expanded', 'false');
+                    const dd = otherDt.nextElementSibling;
+                    if (dd && dd.tagName === 'DD') {
+                        dd.style.display = 'none';
+                    }
+                });
+
+                // 타겟팅된 특정 노드의 열림 닫힘 토글 수행
+                if (!isAlreadyActive) {
+                    dt.classList.add('active');
+                    dt.setAttribute('aria-expanded', 'true');
+                    const dd = dt.nextElementSibling;
+                    if (dd && dd.tagName === 'DD') {
+                        dd.style.display = 'block';
+                    }
+                }
+            });
+
+            dt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dt.click();
+                }
+            });
+        });
+    </script>
+  
